@@ -1,18 +1,20 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-
+#include <cstdio>
 int main()
 {
     int i=0,check=0,cout=0,erb=0,c=0,e=0;
-    char name[20],stl[7]="circle";
-    float P,S,r,a,b,PI=3.14;
+    char name[40],stl[7]="circle";
+    float P,S,r,PI=3.14;
+    FILE * ptrFile = fopen("123" , "r");
+    fgets(name,40,ptrFile);
     
-    fgets(name,20,"123");
     
-    
-    
-    while (i < 20){
+    if (ptrFile == NULL) perror("Ошибка открытия файла");
+   else
+   {
+    while (i <= 28){
         if(name[i]==' '){
             i++;
         }
@@ -38,8 +40,7 @@ int main()
         }
         
         if('0' <= name[i] && name[i] <= '9'){
-            a=name[i] - '0';
-            
+           // a=name[i] - '0';
             i++;
             erb++;
             
@@ -50,6 +51,56 @@ int main()
             break;
         }
         
+         if(name[i] == '.'){
+           i++;
+                
+         }
+            if('0' <= name[i] && name[i] <= '9'){
+           // a=name[i] - '0';
+            i++;
+            
+        }else{
+            if(erb == 1)break;
+            puts (name);
+            printf(" expected number ");
+            break;
+        }
+       
+            
+            if(name[i]==' '){
+            i++;
+        }
+
+           if('0' <= name[i] && name[i] <= '9'){
+           // a=name[i] - '0';
+            i++;
+            erb++;
+            
+        }else{
+            if(erb == 1)break;
+            puts (name);
+            printf(" expected number ");
+            break;
+        }
+        
+         if(name[i] == '.'){
+           i++;
+                
+         }
+            if('0' <= name[i] && name[i] <= '9'){
+           // a=name[i] - '0';
+            i++;
+            
+        }else{
+            if(erb == 1)break;
+            puts (name);
+            printf(" expected number ");
+            break;
+        }
+
+
+
+
         if(name[i] != ','){
             if(c == 1)break;
             puts (name);
@@ -60,15 +111,33 @@ int main()
             i++;
             c++;
         }
+
+         if(name[i]==' '){
+            i++;
+        }
+        
         
          if('0' <= name[i] && name[i] <= '9'){
-            r=name[i] - '0';
+            if(name[i+1] == '.'){
+           r=name[i]- '0' + (name[i+2]-'0')*0.1;
+               
             i++;
              P=2*PI*r;
               printf("\n P=%f",P);
              S=PI*r*r;
               printf("\n S=%f",S);
-            
+         }else{
+            r=name[i] - '0';
+            if( r < 0){
+              printf("incorrect r");
+              break;
+              } 
+            i++;
+             P=2*PI*r;
+              printf("\n P=%f",P);
+             S=PI*r*r;
+              printf("\n S=%f",S);
+            }
         }else{
             if(erb == 1)break;
             puts (name);
@@ -76,7 +145,19 @@ int main()
             break;
         }
         
-        
+         if(name[i] == '.'){
+           i++;
+                if('0' <= name[i] && name[i] <= '9'){
+           // a=name[i] - '0';
+            i++;
+            
+        }else{
+            if(erb == 1)break;
+            puts (name);
+            printf(" expected number ");
+            break;
+        }
+         }
      /*   if(name[i] != ','){
             if(check == 4)break;
             puts (name);
@@ -97,22 +178,26 @@ int main()
             puts (name);
             printf(" expected number ");
             break;
-        }*/
+        }*/ 
+          if(name[i]==' '){
+            i++;
+        }
         
          if(name[i] != ')'){
-            if(check == 6)break;
+            if(e == 1)break;
             puts (name);
             printf(" expected ')'");
             break;
         }else{
             i++;
-            check++;
+            e++;
         }
-        
+              
+
            if('0' <= name[i] && name[i] <= '9'){
              if(erb == 1)break;
             puts (name);
-            printf(" expected number ");
+            printf(" unexpected number ");
             break;
         }else{
            i++;
@@ -121,9 +206,9 @@ int main()
         
         
     }
-   
-    
-     //puts(name);
+     }
+    fclose (ptrFile);
+     puts(name);
 
     return 0;
 }
