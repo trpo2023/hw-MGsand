@@ -8,7 +8,7 @@ int main()
     char name[20],stl[7]="circle";
     float P,S,r,a,b,PI=3.14;
     
-    gets(name);
+    fgets(name,20,"123");
     
     
     
